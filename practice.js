@@ -5,15 +5,18 @@
 
   // 2) What are the four rules that govern what the 'this keyword' is bound to and describe each?
 
-      //Answer
+      // implicit- did not directly specify which object to pass.
+      // explicit- you specify the object in the call
+      // default- window. will look for global values
+      // new- creates new object
 
   // 3) What is the difference between call and apply?
 
-      //Answer
+      // apply wraps the arguments in an array
 
   // 4) What does .bind do?
 
-      //Answer
+      // binds a function to the this and object. will return a new var function
 
 
 //Next Problem
@@ -23,7 +26,15 @@
   //email --> which is a string
   //getUsername --> which is a function that returns the current object's username property. *Don't use 'user' instead use the 'this' keyword*
 
-    //Code Here
+var user = {
+  username: 'Andrew',
+  email: 'ac12491@gmail.com',
+  getUsername: function() {
+    return this.username;
+  }
+};
+
+user.getUsername();
 
 //Now, invoke the getUsername method and verify you got the username of the object and not anything else.
 
@@ -33,7 +44,19 @@
 
 // Write a constructor function, including method definitions, which will make the following function invocations function properly.
 
-  //Function Invocations Here
+function Car(make, model, year) {
+  this.model = model;
+  this.make = make;
+  this.year = year;
+  this.move = 0
+  this.moveCar = function() {
+    this.move += 10;
+    return this.move;
+  }
+  this.log = function() {
+    console.log('The ' + this.make, this.model + ' has moved by ' + this.move)
+  }
+}
 
 var prius = new Car('Toyota', 'Prius', 2011);
 var mustang = new Car('Ford', 'Mustang', 2013);
@@ -54,7 +77,9 @@ var getYear = function(){
 //Above you're given the getYear function. Call the getYear function with the prius then the mustang objects being the focal objects. *Don't add getYear as a property on both objects*.
 
 //Note(no tests)
-  //Code Here
+
+getYear.call(prius);
+getYear.call(mustang);
 
 
 //New Problem
@@ -69,15 +94,17 @@ var getMyUsername = function() {
  return this.username;
 };
 
-var userName = getMyUsername(); //Fix this
+var userName = getMyUsername.call(myUser); //Fix this
+console.log(userName);
 
 //Above you're given an object, and  a function. What will the getMyUsername function return?
 //Note(no tests)
-  //Answer Here
+
+  // username of myUser
 
 //In the example above, what is the 'this keyword' bound to when getMyUsername runs?
 
-  //Answer Here
+  //Answer Here myUser
 
 
 //Fix the getMyUsername invocation (stored in the userName variable, at the bottom of the above code) so that userName will be equal to 'iliketurtles'.
